@@ -1,5 +1,6 @@
 import process from 'node:process';
-import { movesObj, createMenu } from './helpers/helper.js';
+import { movesObj, showMenu } from './helpers/helper.js';
+import { stdin, stdout } from 'node:process';
 //import crypto from 'node:crypto';
 //console.log(crypto.randomBytes(32).toString('hex'))
 
@@ -18,8 +19,8 @@ if (argv.length < 3){
     let moves;
     moves = argv.slice(2);
     console.log(moves);
-    console.log(movesObj(moves));
-    console.log(createMenu(moves))
+    //console.log(movesObj(moves));
+    showMenu(moves);
 }
 
 
