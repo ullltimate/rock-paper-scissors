@@ -1,4 +1,6 @@
 import process from 'node:process';
+//import crypto from 'node:crypto';
+//console.log(crypto.randomBytes(32).toString('hex'))
 
 let argv = process.argv;
 
@@ -14,7 +16,17 @@ if (argv.length < 3){
 } else {
     let moves;
     moves = argv.slice(2);
-    console.log(moves)
+    console.log(moves);
+    function createMenu(arr){
+        let menu = 'Available moves:\n';
+        const constMoves = '0 - exit\n? - help';
+        for (let i=0; i<arr.length; i++){
+            menu += `${i+1} - ${arr[i]}\n`;
+        }
+        menu += constMoves;
+        return menu;
+    }
+    console.log(createMenu(moves))
 }
 
 
