@@ -9,5 +9,13 @@ function movesObj(arr){
     }, {});
     return Object.assign(obj, constMoves);
 }
-
-export {movesObj}
+function createMenu(arr){
+    let menu = 'Available moves:\n';
+    const constMoves = '0 - exit\n? - help';
+    for (let i=0; i<arr.length; i++){
+        menu += `${i+1} - ${arr[i]}\n`;
+    }
+    menu += constMoves;
+    return menu;
+}
+export {movesObj, createMenu}
