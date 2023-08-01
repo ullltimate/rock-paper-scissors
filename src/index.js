@@ -1,5 +1,5 @@
 import process from 'node:process';
-import { moveComputer, movesObj, showMenu, chooseWin} from './helpers/helper.js';
+import { moveComputer, movesObj, showMenu, chooseWin, help} from './helpers/helper.js';
 import { stdin, stdout } from 'node:process';
 import crypto from 'node:crypto';
 
@@ -30,7 +30,7 @@ if (argv.length < 3){
             //console.log(data.toString().trim());
             //console.log(Object.keys(movesObj(moves)));
             if(data.toString().trim() === '?'){
-                console.log('help')
+                help(moves)
             } else if(data.toString().trim() === '0'){
                 process.exit();
             }else{
@@ -39,7 +39,7 @@ if (argv.length < 3){
                 stdout.write(`Your move: ${movesObj(moves)[filterArr[0]]}\n`);
                 stdout.write(`Computer move: ${computerMove}\n`);
                 stdout.write(`${chooseWin(moves, computerMove, movesObj(moves)[filterArr[0]]) === 'Draw' ? 'Draw' : 'You ' + chooseWin(moves, computerMove, movesObj(moves)[filterArr[0]])}\n`);
-                stdout.write(`HMAC key: ${hmacKey}`);
+                stdout.write(`HMAC key: ${hmacKey}\n`);
                 process.exit();
                } else if (filterArr.length === 0){
                 showMenu(moves);

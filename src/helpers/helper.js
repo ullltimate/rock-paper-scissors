@@ -37,18 +37,27 @@ function chooseWin(arr, compMove, userMove){
     const numderWin = Math.floor(numberMoves/2);
     const indComp = arr.indexOf(compMove);
     const indUser = arr.indexOf(userMove);
-    console.log(indUser-indUser)
-    console.log(indComp-indUser)
     if (compMove === userMove) return 'Draw';
     if (indUser<indComp){
-        if(indUser - indComp <= numderWin){
+        if(indComp - indUser <= numderWin){
             return 'Lose!'
         }
         return 'Win!'
     }
-    if(indComp - indUser <= numberMoves){
+    if(indUser - indComp <= numderWin){
         return 'Win!'
     }
     return 'Lose!'
 }
-export {movesObj, showMenu, moveComputer, chooseWin}
+function help(arr){
+    let obj = arr.reduce((acc, item, index) => {
+        acc[item] = arr.reduce((tar, el, i) => {
+            tar[el] = chooseWin(arr, item, el)
+            return tar
+        }, {});
+        return acc;
+    }, {});
+    console.table(obj)
+}
+
+export {movesObj, showMenu, moveComputer, chooseWin, help}
