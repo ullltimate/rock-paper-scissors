@@ -1,5 +1,5 @@
 import process from 'node:process';
-import { movesObj, showMenu } from './helpers/helper.js';
+import { moveComputer, movesObj, showMenu } from './helpers/helper.js';
 import { stdin, stdout } from 'node:process';
 //import crypto from 'node:crypto';
 //console.log(crypto.randomBytes(32).toString('hex'))
@@ -21,6 +21,30 @@ if (argv.length < 3){
     console.log(moves);
     //console.log(movesObj(moves));
     showMenu(moves);
+    function listenerConsole(){
+        stdout.write('Enter your move: ');
+        stdin.on('data', data => {
+            //console.log(data.toString().trim());
+            //console.log(Object.keys(movesObj(moves)));
+            if(data.toString().trim() === '?'){
+                console.log('help')
+            } else if(data.toString().trim() === '0'){
+                process.exit();
+            }else{
+               let filterArr = Object.keys(movesObj(moves)).filter(el => el === data.toString().trim());
+               if (filterArr > 0){
+                stdout.write(`Your move: ${movesObj(moves)[filterArr[0]]}\n`);
+                stdout.write(`Computer move: ${moveComputer(movesObj(moves))}\n`);
+                process.exit();
+               } else if (filterArr.length === 0){
+                showMenu(moves);
+                stdout.write('Enter your move: ');
+               }
+            }
+        })
+        process.on('SIGINT', () => process.exit());
+    }
+    listenerConsole();
 }
 
 
