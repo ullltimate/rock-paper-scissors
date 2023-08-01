@@ -1,8 +1,7 @@
 import process from 'node:process';
-import { moveComputer, movesObj, showMenu } from './helpers/helper.js';
+import { moveComputer, movesObj, showMenu, token } from './helpers/helper.js';
 import { stdin, stdout } from 'node:process';
-//import crypto from 'node:crypto';
-//console.log(crypto.randomBytes(32).toString('hex'))
+import crypto from 'node:crypto';
 
 let argv = process.argv;
 
@@ -19,7 +18,11 @@ if (argv.length < 3){
     let moves;
     moves = argv.slice(2);
     console.log(moves);
-    //console.log(movesObj(moves));
+    const hmacKey = crypto.randomBytes(32).toString('hex').toUpperCase();
+    const computerMove = moveComputer(movesObj(moves));
+    console.log(computerMove)
+    const hmac = crypto.createHmac('SHA256', hmacKey).update(computerMove).digest('hex').toUpperCase();
+    stdout.write(`HMAC: ${hmac}\n`);
     showMenu(moves);
     function listenerConsole(){
         stdout.write('Enter your move: ');
@@ -34,7 +37,7 @@ if (argv.length < 3){
                let filterArr = Object.keys(movesObj(moves)).filter(el => el === data.toString().trim());
                if (filterArr > 0){
                 stdout.write(`Your move: ${movesObj(moves)[filterArr[0]]}\n`);
-                stdout.write(`Computer move: ${moveComputer(movesObj(moves))}\n`);
+                stdout.write(`Computer move: ${computerMove}\n`);
                 process.exit();
                } else if (filterArr.length === 0){
                 showMenu(moves);
@@ -46,5 +49,3 @@ if (argv.length < 3){
     }
     listenerConsole();
 }
-
-
