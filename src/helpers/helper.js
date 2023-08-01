@@ -32,4 +32,23 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
-export {movesObj, showMenu, moveComputer}
+function chooseWin(arr, compMove, userMove){
+    const numberMoves = arr.length;
+    const numderWin = Math.floor(numberMoves/2);
+    const indComp = arr.indexOf(compMove);
+    const indUser = arr.indexOf(userMove);
+    console.log(indUser-indUser)
+    console.log(indComp-indUser)
+    if (compMove === userMove) return 'Draw';
+    if (indUser<indComp){
+        if(indUser - indComp <= numderWin){
+            return 'Lose!'
+        }
+        return 'Win!'
+    }
+    if(indComp - indUser <= numberMoves){
+        return 'Win!'
+    }
+    return 'Lose!'
+}
+export {movesObj, showMenu, moveComputer, chooseWin}
