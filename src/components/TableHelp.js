@@ -10,6 +10,7 @@ class TableHelp {
             }, {});
             return acc;
         }, {});
+        console.log('\nThe table shows the results from the users point of view (columns - user move, rows - computer move):')
         console.table(objTable);
     }
 }
